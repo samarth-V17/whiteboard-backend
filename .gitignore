@@ -33,5 +33,3 @@ build/
 .vscode/
 
 
-### mongodb connection uri ###
-spring.data.mongodb.uri=mongodb+srv://samarthvarshney007_db_user:HI22GwZnvOxNq3Xg@cluster0.rqniito.mongodb.net/?appName=Cluster0

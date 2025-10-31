@@ -1,17 +1,23 @@
-# Use official lightweight OpenJDK 21 image
+# Use official OpenJDK 21 image
 FROM openjdk:21-jdk-slim
 
-# Set working directory inside container
+# Set working directory
 WORKDIR /app
 
-# Copy everything into the container
+# Install Maven
+RUN apt-get update && apt-get install -y maven && apt-get clean
+
+# Copy project files
 COPY . .
 
-# If using Maven to build your project
+# Give execute permission to mvnw if present
+RUN chmod +x mvnw || true
+
+# Build the project (skip tests to speed up)
 RUN ./mvnw package -DskipTests || mvn package -DskipTests
 
-# Expose your app's port (Render expects this)
+# Expose app port
 EXPOSE 8080
 
-# Run your application (update jar name if needed)
+# Run the JAR file (update name if different)
 CMD ["java", "-jar", "target/backend-0.0.1-SNAPSHOT.jar"]
